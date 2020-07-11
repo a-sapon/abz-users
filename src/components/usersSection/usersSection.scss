@@ -1,0 +1,16 @@
+@import '../../vars.scss';
+
+.users {
+  text-align: center;
+  background-color: $background-color-2;
+  color: #212529;
+
+  &-title {
+    font-size: 30px;
+  }
+
+  &-text {
+    font-size: 16px;
+    color: #4c4b4b;
+  }
+}

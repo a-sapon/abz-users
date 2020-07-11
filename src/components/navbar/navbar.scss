@@ -1,0 +1,23 @@
+.navbar {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &-logo, &-burger {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &-logo {
+    width: 133px;
+    background-image: url(../../assets/images/logo.svg);
+  }
+
+  &-burger {
+    width: 20px;
+    background-image: url(../../assets/images/menu-icon.svg);
+  }
+}
+
