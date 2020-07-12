@@ -19,7 +19,9 @@ const AboutSection = () => (
         directory page P​SD mockup​ into HTML5/CSS3.
       </p>
     </div>
-    <a href='#signup' className='about-btn'>Sing up now</a>
+    <a href='#signup' className='about-btn'>
+      Sing up now
+    </a>
   </section>
 );
 

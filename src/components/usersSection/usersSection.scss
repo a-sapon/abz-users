@@ -3,14 +3,73 @@
 .users {
   text-align: center;
   background-color: $background-color-2;
-  color: #212529;
+  color: $text-color;
 
   &-title {
-    font-size: 30px;
+    font-size: 28px;
+    padding-top: 70px;
   }
 
   &-text {
     font-size: 16px;
-    color: #4c4b4b;
+    color: $text-light-color;
+    margin-bottom: 30px;
+  }
+
+  &-list {
+    margin: 0 auto;
+    max-width: 216px;
+
+    &_item {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+
+      &-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+
+      &-name, &-long {
+        font-size: 24px;
+        font-weight: 400;
+        color: $text-color;
+        max-width: 200px;
+        overflow-wrap: break-word;
+        margin-bottom: 21px;
+      }
+      &-long {
+        margin-bottom: 17px;
+      }
+
+      &-info {
+        font-size: 16px;
+        color: $text-light-color;
+        max-width: 200px;
+        overflow-wrap: break-word;
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  &-btn {
+    width: 210px;
+    height: 38px;
+    border-radius: 4px;
+    background-color: $primary-color;
+    color: $background-color;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+
+    &:hover {
+      background-color: $primary-color-hover;
+    }
   }
 }
