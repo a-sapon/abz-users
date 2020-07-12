@@ -3,12 +3,22 @@ import './usersSection.scss';
 import { fetchUsers } from '../../redux/operations';
 import { connect } from 'react-redux';
 
-const UsersSection = ({ fetchUsers, users, error }) => {
+const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(
+      'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6'
+    );
   }, []);
 
+  url_obj !== null && console.log('url_obj', url_obj.next_url);
+
   const [imageLoadError, setImageLoadError] = useState(true);
+
+  const handleMoreClick = () => {
+    if (url_obj !== null && url_obj.next_url) {
+      fetchUsers(url_obj.next_url);
+    }
+  };
 
   return (
     <section className='users'>
@@ -47,8 +57,9 @@ const UsersSection = ({ fetchUsers, users, error }) => {
           ))}
       </ul>
       {error !== null && <h3>{error}</h3>}
-      {error === null && (
-        <button type='button' className='users-btn'>
+      {error === null && url_obj !== null && url_obj.next_url !== null && (
+        // MAKE BTN COMP FOR SAME BTNS (3)
+        <button onClick={handleMoreClick} type='button' className='users-btn'>
           Show more
         </button>
       )}
@@ -59,6 +70,7 @@ const UsersSection = ({ fetchUsers, users, error }) => {
 const mapStateToProps = (state) => ({
   users: state.users,
   error: state.error,
+  url_obj: state.url_obj,
 });
 
 export default connect(mapStateToProps, { fetchUsers })(UsersSection);
