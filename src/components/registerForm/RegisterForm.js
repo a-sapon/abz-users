@@ -29,14 +29,29 @@ const RegisterForm = ({ fetchPositions, positions }) => {
   };
 
   const handleFileChange = (e) => {
+    console.dir(e.currentTarget);
     const re = /.*\.(jpg|jpeg)$/;
-    const fileName = e.currentTarget.value.toLowerCase();
-    if (!re.test(fileName)) {
+    const fileName = e.currentTarget.files[0].name.toLowerCase();
+    const fileSize = e.currentTarget.files[0].size;
+    if (!re.test(fileName) || fileSize > 5000000) {
       setFileValid(false);
     } else {
       setFileValid(true);
-      setFile(e.target.value);
+      setFile(fileName);
     }
+
+    // validate image dimentions (to be at least 70x70)
+    const fr = new FileReader();
+    fr.onload = function () {
+      const img = new Image();
+      img.onload = function () {
+        if (img.width < 70 || img.height < 70) {
+          setFileValid(false);
+        } else setFileValid(true);
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(e.currentTarget.files[0]);
   };
 
   // inputs validation
@@ -177,7 +192,7 @@ const RegisterForm = ({ fetchPositions, positions }) => {
                 : 'register-form_file-labelWrong'
             }
           >
-            {fileValid ? file : 'Please upload jpg/jpeg images only'}
+            {file}
           </label>
           <input
             onChange={handleFileChange}
@@ -186,6 +201,12 @@ const RegisterForm = ({ fetchPositions, positions }) => {
             id='file'
             className='register-form_file-input'
           ></input>
+          {!fileValid && (
+            <p className='register-form_error'>
+              Upload jpg/jpeg images only; at least 70x70px; size must not
+              exceed 5MB
+            </p>
+          )}
         </div>
 
         <div className='register-form_btn'>

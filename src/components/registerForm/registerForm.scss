@@ -85,6 +85,7 @@
     &_file {
       position: relative;
       font-size: 16px;
+      margin-bottom: 42px;
 
       &-input {
         width: 0.1px;
@@ -98,7 +99,6 @@
       &-label, &-labelWrong {
         display: inline-block;
         cursor: pointer;
-        margin-bottom: 42px;
         line-height: 14px;
         font-size: 14px;
         font-weight: 400;
