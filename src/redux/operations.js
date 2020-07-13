@@ -4,6 +4,7 @@ import {
   getUsersError,
   setUrlObject,
   getPositions,
+  getToken,
 } from './actionCreators';
 
 export const fetchUsers = (url) => async (dispatch) => {
@@ -25,5 +26,16 @@ export const fetchPositions = () => async (dispatch) => {
       'https://frontend-test-assignment-api.abz.agency/api/v1/positions'
     );
     dispatch(getPositions(response.data.positions));
-  } catch (err) {}
+  } catch (err) {
+    console.log(err.message)
+  }
 };
+
+export const fetchToken = () => async (dispatch) => {
+  try {
+    const response = await axios.get('https://frontend-test-assignment-api.abz.agency/api/v1/token');
+    dispatch(getToken(response.data.token));
+  } catch (err) {
+    dispatch(getToken(err.message));
+  }
+}

@@ -19,3 +19,8 @@ export const getPositions = (positions) => ({
   type: Type.GET_POSITIONS,
   payload: positions,
 });
+
+export const getToken = (token) => ({
+  type: Type.GET_TOKEN,
+  payload: token,
+});

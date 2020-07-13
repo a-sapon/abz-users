@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './registerForm.scss';
 import '../app.scss';
-import { fetchPositions } from '../../redux/operations';
+import { fetchPositions, fetchToken } from '../../redux/operations';
 import { connect } from 'react-redux';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
+import axios from 'axios';
 
-const RegisterForm = ({ fetchPositions, positions }) => {
+const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
   useEffect(() => {
     fetchPositions();
+    fetchToken();
   }, []);
 
   const [info, setInfo] = useState({ name: '', email: '', phone: '' });
-  const [position, setPosition] = useState('');
-  const [file, setFile] = useState('Upload your photo');
+  const [position, setPosition] = useState({ id: 1, name: 'Lawyer' });
+  const [file, setFile] = useState(null);
 
   const [nameValid, setNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
@@ -25,19 +27,20 @@ const RegisterForm = ({ fetchPositions, positions }) => {
   };
 
   const handleRadioChange = (e) => {
-    setPosition(e.target.value);
+    setPosition({
+      id: +e.target.id,
+      name: e.target.value,
+    });
   };
 
   const handleFileChange = (e) => {
-    console.dir(e.currentTarget);
     const re = /.*\.(jpg|jpeg)$/;
-    const fileName = e.currentTarget.files[0].name.toLowerCase();
-    const fileSize = e.currentTarget.files[0].size;
-    if (!re.test(fileName) || fileSize > 5000000) {
+    const file = e.currentTarget.files[0];
+    if (!re.test(file.name.toLowerCase()) || file.size > 5000000) {
       setFileValid(false);
     } else {
       setFileValid(true);
-      setFile(fileName);
+      setFile(file);
     }
 
     // validate image dimentions (to be at least 70x70)
@@ -63,7 +66,7 @@ const RegisterForm = ({ fetchPositions, positions }) => {
   };
 
   const emailValidate = () => {
-    const re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+    const re = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
     if (!re.test(info.email)) {
       setEmailValid(false);
     } else setEmailValid(true);
@@ -76,8 +79,51 @@ const RegisterForm = ({ fetchPositions, positions }) => {
     } else setPhoneValid(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      info.name === '' ||
+      info.email === '' ||
+      info.phone === '' ||
+      file === null
+    ) {
+      return;
+    }
+
+    // update DB
+    const formData = new FormData();
+    formData.append('name', info.name);
+    formData.append('email', info.email);
+    formData.append('phone', info.phone);
+    formData.append('position_id', position.id);
+    formData.append('photo', file);
+
+    try {
+      const response = await axios.post(
+        'https://frontend-test-assignment-api.abz.agency/api/v1/users',
+        formData,
+        { headers: { Token: token } }
+      );
+      console.log('response', response.data);
+      fetchToken();
+
+      // update UI
+      const newUser = {
+        id: response.data.user_id,
+        name: info.name,
+        email: info.email,
+        phone: info.phone,
+        position: position.name,
+        position_id: position.id,
+        photo: file,
+      };
+      console.log('newUser', newUser)
+    } catch (err) {}
+
+    // fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users',
+    // { method: 'POST', body: formData, headers: { 'Token': token, }, })
+    // .then(function(response) { return response.json(); })
+    // .then(function(data) { console.log(data); if(data.success) {  } else {  } }) .catch(function(error) { // proccess network errors });
   };
 
   return (
@@ -162,21 +208,23 @@ const RegisterForm = ({ fetchPositions, positions }) => {
           )}
         </div>
 
-        <h3 className='register-form_title'>Select your position</h3>
+        {positions.length !== 0 && (
+          <h3 className='register-form_title'>Select your position</h3>
+        )}
         <ul className='register-form_list'>
-          {positions !== [] &&
-            positions.map(({ id, name }) => (
-              <li key={id} className='register-form_list-item'>
+          {positions.length !== 0 &&
+            positions.map((pos) => (
+              <li key={pos.id} className='register-form_list-item'>
                 <input
                   onChange={handleRadioChange}
-                  value={name}
-                  checked={position === name}
+                  value={pos.name}
+                  checked={position.id === pos.id}
                   type='radio'
                   name='position'
-                  id={id}
+                  id={pos.id}
                 ></input>
-                <label htmlFor={id} className='register-form_radioLabel'>
-                  {name}
+                <label htmlFor={pos.id} className='register-form_radioLabel'>
+                  {pos.name}
                 </label>
               </li>
             ))}
@@ -192,7 +240,7 @@ const RegisterForm = ({ fetchPositions, positions }) => {
                 : 'register-form_file-labelWrong'
             }
           >
-            {file}
+            {(file && file.name) || 'Upload your photo'}
           </label>
           <input
             onChange={handleFileChange}
@@ -219,6 +267,9 @@ const RegisterForm = ({ fetchPositions, positions }) => {
 
 const mapStateToProps = (state) => ({
   positions: state.positions,
+  token: state.token,
 });
 
-export default connect(mapStateToProps, { fetchPositions })(RegisterForm);
+export default connect(mapStateToProps, { fetchPositions, fetchToken })(
+  RegisterForm
+);

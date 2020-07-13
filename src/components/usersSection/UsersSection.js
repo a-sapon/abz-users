@@ -27,7 +27,7 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
         Attention! Sorting users by registration date
       </p>
       <ul className='users-list'>
-        {users !== [] &&
+        {users.length !== 0 &&
           users.map((user) => (
             <li key={user.id} className='users-list_item'>
               <img
