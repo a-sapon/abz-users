@@ -4,6 +4,7 @@ const INIT_STATE = {
   users: [],
   error: null,
   url_obj: null,
+  positions: [],
 };
 
 export const userReducer = (state = INIT_STATE, { type, payload }) => {
@@ -16,6 +17,9 @@ export const userReducer = (state = INIT_STATE, { type, payload }) => {
 
     case Type.SET_URL_OBJECT:
       return { ...state, url_obj: payload };
+
+    case Type.GET_POSITIONS:
+      return { ...state, positions: payload };
 
     default:
       return state;

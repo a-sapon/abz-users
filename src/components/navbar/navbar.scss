@@ -1,8 +1,13 @@
+@import '../../vars.scss';
+
 .navbar {
   height: 40px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  background-color: $background-color;
 
   &-logo, &-burger {
     height: 100%;
@@ -11,11 +16,15 @@
   }
 
   &-logo {
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
     width: 133px;
     background-image: url(../../assets/images/logo.svg);
   }
 
   &-burger {
+    cursor: pointer;
     width: 20px;
     background-image: url(../../assets/images/menu-icon.svg);
   }

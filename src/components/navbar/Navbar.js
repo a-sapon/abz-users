@@ -4,7 +4,7 @@ import '../app.scss';
 
 const Navbar = () => (
   <nav className='navbar container'>
-    <div className='navbar-logo'></div>
+    <a href='# ' className='navbar-logo'>logo</a>
     <div className='navbar-burger'></div>
   </nav>
 );

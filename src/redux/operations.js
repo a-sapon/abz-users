@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { getUsers, getUsersError, setUrlObject } from './actionCreators';
+import {
+  getUsers,
+  getUsersError,
+  setUrlObject,
+  getPositions,
+} from './actionCreators';
 
 export const fetchUsers = (url) => async (dispatch) => {
   try {
@@ -12,4 +17,13 @@ export const fetchUsers = (url) => async (dispatch) => {
   } catch (err) {
     dispatch(getUsersError(err.message));
   }
+};
+
+export const fetchPositions = () => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      'https://frontend-test-assignment-api.abz.agency/api/v1/positions'
+    );
+    dispatch(getPositions(response.data.positions));
+  } catch (err) {}
 };

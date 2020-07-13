@@ -4,6 +4,8 @@ import Banner from './banner/Banner';
 import AboutSection from './aboutSection/AboutSection';
 import UsersSection from './usersSection/UsersSection';
 import './app.scss';
+import RegisterForm from './registerForm/RegisterForm';
+import Footer from './footer/Footer';
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
         <Banner />
         <AboutSection />
         <UsersSection />
+        <RegisterForm />
       </main>
+      <Footer />
     </>
   );
 }

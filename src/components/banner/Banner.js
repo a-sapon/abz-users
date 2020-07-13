@@ -1,9 +1,10 @@
 import React from 'react';
 import './banner.scss';
+import PrimaryBtn from '../primaryBtn/PrimaryBtn';
 
 const Banner = () => {
   return (
-    <div className='banner'>
+    <section className='banner container'>
       <h1 className='banner-title'>
         Test assignment for Frontend Developer position
       </h1>
@@ -11,10 +12,10 @@ const Banner = () => {
         We kindly remind you that your test assignment should be submitted as a
         link to github/bitbucket repository.
       </p>
-      <button type='button' className='banner-btn'>
-        Sing up now
-      </button>
-    </div>
+      <a href='#register'>
+        <PrimaryBtn name='Sing up now' type='button' />
+      </a>
+    </section>
   );
 };
 

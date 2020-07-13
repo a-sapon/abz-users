@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   background-image: url(../../assets/images/banner-mob-w360.jpg);
-  margin-bottom: 73px;
+  margin: 40px 0 73px 0;
 
   @media (min-resolution: 192dpi), (min-resolution: 2dppx) {
     background-image: url(../../assets/images/banner-mob-w720.jpg);
@@ -34,23 +34,5 @@
     width: 330px;
     margin-bottom: 24px;
     overflow: hidden;
-  }
-
-  &-btn {
-    width: 210px;
-    height: 38px;
-    border-radius: 4px;
-    background-color: $primary-color;
-    color: $background-color;
-    font-size: 16px;
-    font-weight: 600;
-    outline: none;
-    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
-
-    &:hover {
-      background-color: $primary-color-hover;
-    }
   }
 }

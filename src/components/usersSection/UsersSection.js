@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './usersSection.scss';
 import { fetchUsers } from '../../redux/operations';
 import { connect } from 'react-redux';
+import PrimaryBtn from '../primaryBtn/PrimaryBtn';
+import './usersSection.scss';
+import '../app.scss';
 
 const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   useEffect(() => {
@@ -15,13 +17,14 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   const [imageLoadError, setImageLoadError] = useState(true);
 
   const handleMoreClick = () => {
+    console.log('click')
     if (url_obj !== null && url_obj.next_url) {
       fetchUsers(url_obj.next_url);
     }
   };
 
   return (
-    <section className='users'>
+    <section className='users container'>
       <h2 className='users-title'>Our cheerful users</h2>
       <p className='users-text'>
         Attention! Sorting users by registration date
@@ -58,10 +61,7 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
       </ul>
       {error !== null && <h3>{error}</h3>}
       {error === null && url_obj !== null && url_obj.next_url !== null && (
-        // MAKE BTN COMP FOR SAME BTNS (3)
-        <button onClick={handleMoreClick} type='button' className='users-btn'>
-          Show more
-        </button>
+        <PrimaryBtn name='Show more' onHandleClick={handleMoreClick} />
       )}
     </section>
   );

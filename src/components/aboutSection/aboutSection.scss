@@ -43,6 +43,7 @@
     font-size: 16px;
     font-weight: 600;
     color: $primary-color;
+    transition: color 300ms ease-in-out;
 
     &:hover {
       color: $primary-color-hover;

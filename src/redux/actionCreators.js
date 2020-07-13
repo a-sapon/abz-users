@@ -14,3 +14,8 @@ export const setUrlObject = (urlObject) => ({
   type: Type.SET_URL_OBJECT,
   payload: urlObject,
 });
+
+export const getPositions = (positions) => ({
+  type: Type.GET_POSITIONS,
+  payload: positions,
+});

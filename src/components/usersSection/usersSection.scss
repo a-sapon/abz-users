@@ -4,24 +4,25 @@
   text-align: center;
   background-color: $background-color-2;
   color: $text-color;
+  padding-bottom: 80px;
 
   &-title {
-    font-size: 28px;
-    padding-top: 70px;
+    font-size: 29px;
+    padding-top: 77px;
+    margin-bottom: 8px;
   }
 
   &-text {
     font-size: 16px;
     color: $text-light-color;
-    margin-bottom: 30px;
+    margin-bottom: 37px;
   }
 
   &-list {
     margin: 0 auto;
-    max-width: 216px;
+    max-width: 200px;
 
     &_item {
-      width: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -53,24 +54,6 @@
         overflow-wrap: break-word;
         margin-bottom: 12px;
       }
-    }
-  }
-
-  &-btn {
-    width: 210px;
-    height: 38px;
-    border-radius: 4px;
-    background-color: $primary-color;
-    color: $background-color;
-    font-size: 16px;
-    font-weight: 600;
-    outline: none;
-    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
-
-    &:hover {
-      background-color: $primary-color-hover;
     }
   }
 }
