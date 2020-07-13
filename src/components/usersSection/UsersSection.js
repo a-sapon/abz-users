@@ -12,12 +12,9 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
     );
   }, []);
 
-  url_obj !== null && console.log('url_obj', url_obj.next_url);
-
   const [imageLoadError, setImageLoadError] = useState(true);
 
   const handleMoreClick = () => {
-    console.log('click')
     if (url_obj !== null && url_obj.next_url) {
       fetchUsers(url_obj.next_url);
     }

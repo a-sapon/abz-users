@@ -36,7 +36,7 @@
       margin-bottom: 10px;
     }
 
-    &_input, &_file-label {
+    &_input, &_inputWrong, &_file-label, &_file-labelWrong {
       width: 330px;
       height: 36px;
       font-size: 16px;
@@ -51,6 +51,16 @@
         color: #6c757d;
         padding-top: 8px;
       }
+    }
+
+    &_error {
+      font-size: 12px;
+      color: $primary-color;
+      margin: 4px 0 0 10px;
+    }
+
+    &_inputWrong {
+      border: 1px solid $primary-color;
     }
 
     &_title {
@@ -85,7 +95,7 @@
         z-index: -1;
       }
 
-      &-label {
+      &-label, &-labelWrong {
         display: inline-block;
         cursor: pointer;
         margin-bottom: 42px;
@@ -114,6 +124,11 @@
           top: 1px;
           right: 1px;
         }
+      }
+
+      &-labelWrong {
+        border: 1px solid $primary-color;
+        color: $primary-color;
       }
     }
 
