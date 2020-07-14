@@ -16,17 +16,21 @@ export const ScreenContext = createContext();
 
 function App({ spinner, modal }) {
   const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const checkScreenWidth = () => {
       if (window.innerWidth < 768) setIsMobile(true);
       else setIsMobile(false);
+
+      if (window.innerWidth >= 1024) setIsDesktop(true);
+      else setIsDesktop(false);
     };
     checkScreenWidth();
   }, []);
 
   return (
-    <ScreenContext.Provider value={isMobile}>
+    <ScreenContext.Provider value={{isMobile, isDesktop}}>
       <header>
         <Navbar />
       </header>

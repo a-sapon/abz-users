@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
 import { ScreenContext } from '../App';
 import './banner.scss';
+import '../app.scss';
 
 const Banner = () => {
-  const isMobile = useContext(ScreenContext);
+  const { isMobile } = useContext(ScreenContext);
 
   return (
     <section className='banner'>

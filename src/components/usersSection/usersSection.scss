@@ -24,6 +24,13 @@
       max-height: 162px;
       margin-bottom: 14px;
     }
+
+    @media (min-width: 1024px) {
+      font-size: 50px;
+      padding-top: 144px;
+      max-height: 212px;
+      margin-bottom: 12px;
+    }
   }
 
   &-text {
@@ -50,6 +57,10 @@
       justify-content: space-around;
     }
 
+    @media (min-width: 1024px) {
+      max-width: 860px;
+    }
+
     &_item {
       width: 200px;
       display: flex;
@@ -67,6 +78,12 @@
       &:nth-last-child(-n+3) {
         @media (min-width: 768px) {
           margin-bottom: 0;
+        }
+      }
+
+      &:not(:nth-child(3n)) {
+        @media (min-width: 1024px) {
+          margin-right: 130px;
         }
       }
 
