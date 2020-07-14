@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import './registerForm.scss';
-import '../app.scss';
-import { fetchPositions, fetchToken } from '../../redux/operations';
+import { spinnerON, spinnerOFF, openModal } from '../../redux/actionCreators';
+import { fetchToken, refreshUsers } from '../../redux/operations';
 import { connect } from 'react-redux';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
+import Positions from './positions/Positions';
 import axios from 'axios';
+import './registerForm.scss';
+import '../app.scss';
 
-const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
+const RegisterForm = ({
+  fetchToken,
+  token,
+  refreshUsers,
+  spinnerON,
+  spinnerOFF,
+  openModal
+}) => {
   useEffect(() => {
-    fetchPositions();
     fetchToken();
-  }, []);
+  }, [fetchToken]);
 
   const [info, setInfo] = useState({ name: '', email: '', phone: '' });
   const [position, setPosition] = useState({ id: 1, name: 'Lawyer' });
@@ -26,7 +34,7 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
     setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleRadioChange = (e) => {
+  const handlePositionChange = (e) => {
     setPosition({
       id: +e.target.id,
       name: e.target.value,
@@ -73,7 +81,7 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
   };
 
   const phoneValidate = () => {
-    const re = /^[+][3][8][0][ -]*([0-9 -]{9,12})$/;
+    const re = /^[+]{0,1}380([0-9]{9})$/;
     if (!re.test(info.phone)) {
       setPhoneValid(false);
     } else setPhoneValid(true);
@@ -90,7 +98,8 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
       return;
     }
 
-    // update DB
+    spinnerON();
+    try {
     const formData = new FormData();
     formData.append('name', info.name);
     formData.append('email', info.email);
@@ -98,32 +107,27 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
     formData.append('position_id', position.id);
     formData.append('photo', file);
 
-    try {
       const response = await axios.post(
         'https://frontend-test-assignment-api.abz.agency/api/v1/users',
         formData,
-        { headers: { Token: token } }
+        { headers: { Token: token, 'Content-Type': 'multipart/form-data' } }
       );
-      console.log('response', response.data);
-      fetchToken();
 
-      // update UI
-      const newUser = {
-        id: response.data.user_id,
-        name: info.name,
-        email: info.email,
-        phone: info.phone,
-        position: position.name,
-        position_id: position.id,
-        photo: file,
-      };
-      console.log('newUser', newUser)
-    } catch (err) {}
+      if (response.data.success) {
+        refreshUsers();
+      } 
+      spinnerOFF();
+      openModal(response.data);
+      fetchToken(); // get new token for possible next request
+    } catch (err) {
+      openModal(err.response.data)
+      spinnerOFF();
+    }
 
-    // fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users',
-    // { method: 'POST', body: formData, headers: { 'Token': token, }, })
-    // .then(function(response) { return response.json(); })
-    // .then(function(data) { console.log(data); if(data.success) {  } else {  } }) .catch(function(error) { // proccess network errors });
+    // clear inputs after submit
+    setInfo({ name: '', email: '', phone: '' });
+    setPosition({ id: 1, name: 'Lawyer' });
+    setFile(null);
   };
 
   return (
@@ -208,27 +212,7 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
           )}
         </div>
 
-        {positions.length !== 0 && (
-          <h3 className='register-form_title'>Select your position</h3>
-        )}
-        <ul className='register-form_list'>
-          {positions.length !== 0 &&
-            positions.map((pos) => (
-              <li key={pos.id} className='register-form_list-item'>
-                <input
-                  onChange={handleRadioChange}
-                  value={pos.name}
-                  checked={position.id === pos.id}
-                  type='radio'
-                  name='position'
-                  id={pos.id}
-                ></input>
-                <label htmlFor={pos.id} className='register-form_radioLabel'>
-                  {pos.name}
-                </label>
-              </li>
-            ))}
-        </ul>
+        <Positions onHanleChange={handlePositionChange} position={position} />
 
         <h3 className='register-form_title'>Photo</h3>
         <div className='register-form_file'>
@@ -265,11 +249,14 @@ const RegisterForm = ({ fetchPositions, positions, fetchToken, token }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  positions: state.positions,
-  token: state.token,
+const mapStateToProps = ({ user }) => ({
+  token: user.token,
 });
 
-export default connect(mapStateToProps, { fetchPositions, fetchToken })(
-  RegisterForm
-);
+export default connect(mapStateToProps, {
+  fetchToken,
+  refreshUsers,
+  spinnerON,
+  spinnerOFF,
+  openModal
+})(RegisterForm);

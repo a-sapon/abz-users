@@ -10,12 +10,16 @@
     font-size: 29px;
     padding-top: 77px;
     margin-bottom: 8px;
+    max-height: 116px;
+    overflow: hidden;
   }
 
   &-text {
     font-size: 16px;
     color: $text-light-color;
     margin-bottom: 37px;
+    max-height: 22px;
+    overflow: hidden;
   }
 
   &-list {

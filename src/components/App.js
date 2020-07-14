@@ -5,9 +5,14 @@ import AboutSection from './aboutSection/AboutSection';
 import UsersSection from './usersSection/UsersSection';
 import RegisterForm from './registerForm/RegisterForm';
 import Footer from './footer/Footer';
+import Spinner from './spinner/Spinner';
+import Modal from './modal/Modal';
+import { connect } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 import './app.scss';
+import './modal/animation.scss';
 
-function App() {
+function App({ spinner, modal }) {
   return (
     <>
       <header>
@@ -20,8 +25,22 @@ function App() {
         <RegisterForm />
       </main>
       <Footer />
+      {spinner && <Spinner />}
+      <CSSTransition
+        in={modal.open}
+        timeout={300}
+        classNames='animation'
+        unmountOnExit
+      >
+        <Modal response={modal.response} />
+      </CSSTransition>
     </>
   );
 }
 
-export default App;
+const mapStateToProps = ({ spinner, modal }) => ({
+  spinner,
+  modal,
+});
+
+export default connect(mapStateToProps)(App);

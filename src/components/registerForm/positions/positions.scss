@@ -1,0 +1,20 @@
+.position-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+}
+
+.position-list {
+  margin-bottom: 20px;
+
+  &_item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &_item {
+    &-label {
+      padding-left: 10px;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+
+  &-modal {
+    padding: 40px 24px 24px 24px;
+    border-radius: 4px;
+    max-width: 690px;
+    width: 90%;
+    min-height: 320px;
+    background-color: #ffffff;
+    color: var(--text-color);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+      0 2px, 1px, -1px rgba(0, 0, 0, 0.12);
+    position: relative;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_responseOk, &_responseError {
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 0;
+      text-align: center;
+
+      &::after, &::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+        margin-top: 36px;
+      }
+    }
+
+    &_responseOk::after {
+      background-image: url(../../assets/images/checkmark.png);
+    }
+    &_responseError::after {
+      background-image: url(../../assets/images/cross.png);
+    }
+
+    &_closeBtn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      fill: var(--text-color);
+      cursor: pointer;
+      transition: fill 200ms ease-in-out, transform 200ms ease-in-out;
+
+      &:hover {
+        fill: #000000;
+        transform: scale(1.1);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      max-width: 970px;
+      padding: 40px;
+    }
+  }
+}

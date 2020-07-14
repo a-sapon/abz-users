@@ -24,3 +24,25 @@ export const getToken = (token) => ({
   type: Type.GET_TOKEN,
   payload: token,
 });
+
+export const getUpdatedUsers = (users) => ({
+  type: Type.REFRESH_USERS,
+  payload: users,
+});
+
+export const spinnerON = () => ({
+  type: Type.SPINNER_ON,
+});
+
+export const spinnerOFF = () => ({
+  type: Type.SPINNER_OFF,
+});
+
+export const openModal = (response) => ({
+  type: Type.OPEN_MODAL,
+  payload: response,
+});
+
+export const closeModal = () => ({
+  type: Type.CLOSE_MODAL,
+});

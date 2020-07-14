@@ -10,13 +10,17 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
     fetchUsers(
       'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6'
     );
-  }, []);
+  }, [fetchUsers]);
 
   const [imageLoadError, setImageLoadError] = useState(true);
 
   const handleMoreClick = () => {
     if (url_obj !== null && url_obj.next_url) {
       fetchUsers(url_obj.next_url);
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -64,10 +68,10 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  users: state.users,
-  error: state.error,
-  url_obj: state.url_obj,
+const mapStateToProps = ({ user }) => ({
+  users: user.users,
+  error: user.usersError,
+  url_obj: user.url_obj,
 });
 
 export default connect(mapStateToProps, { fetchUsers })(UsersSection);
