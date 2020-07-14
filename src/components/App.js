@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import Navbar from './navbar/Navbar';
 import Banner from './banner/Banner';
 import AboutSection from './aboutSection/AboutSection';
@@ -12,9 +12,21 @@ import { CSSTransition } from 'react-transition-group';
 import './app.scss';
 import './modal/animation.scss';
 
+export const ScreenContext = createContext();
+
 function App({ spinner, modal }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      if (window.innerWidth < 768) setIsMobile(true);
+      else setIsMobile(false);
+    };
+    checkScreenWidth();
+  }, []);
+
   return (
-    <>
+    <ScreenContext.Provider value={isMobile}>
       <header>
         <Navbar />
       </header>
@@ -34,7 +46,7 @@ function App({ spinner, modal }) {
       >
         <Modal response={modal.response} />
       </CSSTransition>
-    </>
+    </ScreenContext.Provider>
   );
 }
 

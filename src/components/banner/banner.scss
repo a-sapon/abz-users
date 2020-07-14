@@ -9,10 +9,22 @@
   flex-direction: column;
   align-items: center;
   background-image: url(../../assets/images/banner-mob-w360.jpg);
-  margin: 40px 0 73px 0;
+  margin: 40px auto 72px auto;
 
   @media (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: url(../../assets/images/banner-mob-w720.jpg);
+    background-image: url(../../assets/images/banner-mob-w360@2x.jpg);
+  }
+
+  @media (min-width: 768px) {
+    height: 500px;
+    text-align: left;
+    align-items: flex-start;
+    margin: 60px auto 108px auto;
+    background-image: url(../../assets/images/banner-tablet-w768.jpg);
+  }
+
+  @media (min-width: 768px) and (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    background-image: url(../../assets/images/banner-tablet-w768@2x.jpg);
   }
 
   &-title {
@@ -21,18 +33,33 @@
     color: $background-color;
     font-weight: 400;
     text-transform: uppercase;
-    margin: 70px 0 19px 0;
-    width: 312px;
+    margin: 70px auto 19px auto;
+    max-width: 312px;
     max-height: 102px;
     overflow: hidden;
+
+    @media (min-width: 768px) {
+      font-size: 40px;
+      line-height: 44px;
+      max-width: 416px;
+      max-height: 132px;
+      margin: 60px 0 27px 0;
+    }
   }
 
   &-text {
     font-size: 16px;
     line-height: 24px;
     color: $background-color;
-    width: 330px;
-    margin-bottom: 24px;
+    max-width: 330px;
+    max-height: 72px;
     overflow: hidden;
+    margin-bottom: 24px;
+
+    @media (min-width: 768px) {
+      max-width: 462px;
+      max-height: 146px;
+      margin-bottom: 34px;
+    }
   }
 }
