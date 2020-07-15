@@ -7,19 +7,29 @@
     padding-top: 105px;
   }
 
+  @media (min-width: 1024px) {
+    padding-top: 143px;
+  }
+
   &-title {
     font-size: 30px;
     font-weight: 400;
     color: $text-color;
     text-align: center;
-    margin-bottom: 16px;
     max-height: 42px;
     overflow: hidden;
+    margin-bottom: 16px;
 
     @media (min-width: 768px) {
       font-size: 40px;
       max-height: 56px;
       margin-bottom: 14px;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 50px;
+      max-height: 68px;
+      margin-bottom: 12px;
     }
   }
 

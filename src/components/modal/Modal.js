@@ -16,26 +16,20 @@ const Modal = ({ response, closeModal }) => {
   return (
     <div onClick={hideModal} className='overlay'>
       <div className='overlay-modal'>
-        <div
-          className={
-            response.success
-              ? 'overlay-modal_responseOk'
-              : 'overlay-modal_responseError'
-          }
-        >
-          {response.message}
-        </div>
+        <h3 className='overlay-modal_title'>
+          {response.success ? 'Success!' : 'Error!'}
+        </h3>
+        <div className='overlay-modal_response'>{response.message}</div>
+        <button data-action='close-modal' className='overlay-modal_btn'>
+          Great
+        </button>
 
         <span data-action='close-modal' className='overlay-modal_closeBtn'>
-          <svg
-            data-action='close-modal'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-          >
+          <svg data-action='close-modal' width='12px' height='12px'>
             <path
               data-action='close-modal'
-              d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z'
+              fill-rule='evenodd'
+              d='M11.998,9.899 L9.899,11.998 L6.000,8.099 L2.101,11.998 L0.002,9.899 L3.901,6.000 L0.002,2.101 L2.101,0.002 L6.000,3.901 L9.899,0.002 L11.998,2.101 L8.099,6.000 L11.998,9.899 Z'
             />
           </svg>
         </span>

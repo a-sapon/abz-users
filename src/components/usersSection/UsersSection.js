@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
 import './usersSection.scss';
 import '../app.scss';
+import ReactTooltip from 'react-tooltip';
 
 const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   useEffect(() => {
@@ -22,6 +23,19 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
         behavior: 'smooth',
       });
     }
+  };
+
+  const [hint, showHint] = useState(false);
+
+  const hover = (e) => {
+    if (e.target.scrollWidth > 200) {
+      e.target.style.cursor = 'pointer';
+      showHint(true);
+    }
+  };
+
+  const unHover = (e) => {
+    showHint(false);
   };
 
   return (
@@ -56,7 +70,15 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
                   {user.name}
                 </h3>
                 <p className='users-list_item-info'>{user.position}</p>
-                <p className='users-list_item-info'>{user.email}</p>
+                <p
+                  data-tip={user.email}
+                  onMouseOver={hover}
+                  onMouseOut={unHover}
+                  className='users-list_item-info'
+                >
+                  {user.email}
+                </p>
+                {hint && <ReactTooltip place='bottom' />}
                 <p className='users-list_item-info'>{user.phone}</p>
               </li>
             ))}
