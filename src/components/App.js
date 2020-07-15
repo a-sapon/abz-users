@@ -11,9 +11,9 @@ import NavMenu from './navbar/navMenu/NavMenu';
 import { connect } from 'react-redux';
 import Swipe from 'react-easy-swipe';
 import { CSSTransition } from 'react-transition-group';
+import { closeMobileMenu } from '../redux/actionCreators';
 import '../styles/modalAnimation.scss';
 import './app.scss';
-import { closeMobileMenu } from '../redux/actionCreators';
 
 export const ScreenContext = createContext();
 

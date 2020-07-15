@@ -3,7 +3,7 @@
 .banner {
   height: 400px;
   background-position: center;
-  background-size: cover;
+  background-repeat: no-repeat;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -30,6 +30,7 @@
   @media (min-width: 1024px) {
     height: 600px;
     margin: 60px auto 146px auto;
+    background-size: contain;
     background-image: url(../../assets/images/banner-desk-w1024.jpg);
   }
 

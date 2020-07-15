@@ -131,8 +131,8 @@ const RegisterForm = ({
   };
 
   return (
-    <section className='register container'>
-      <h2 id='register' className='register-title'>
+    <section id='register' className='register container'>
+      <h2 className='register-title'>
         Register to get a work
       </h2>
       <p className='register-text'>

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../../redux/operations';
 import { connect } from 'react-redux';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
+import ReactTooltip from 'react-tooltip';
 import './usersSection.scss';
 import '../app.scss';
-import ReactTooltip from 'react-tooltip';
 
 const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const UsersSection = ({ fetchUsers, users, error, url_obj }) => {
     if (url_obj !== null && url_obj.next_url) {
       fetchUsers(url_obj.next_url);
       window.scrollTo({
-        top: document.documentElement.scrollHeight,
+        top: document.documentElement.scrollHeight - 1000,
         behavior: 'smooth',
       });
     }
