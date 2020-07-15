@@ -1,10 +1,11 @@
-@import '../../vars.scss';
+@import '../../styles/vars.scss';
 
 .nav {
   height: 40px;
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 1;
   background-color: $background-color;
 
   @media (min-width: 768px) {
@@ -36,6 +37,26 @@
       cursor: pointer;
       width: 20px;
       background-image: url(../../assets/images/menu-icon.svg);
+    }
+
+    &_list {
+      width: 445px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+
+      &-item {
+        color: $text-color;
+        transition: color 300ms ease-in-out;
+
+        &:hover {
+          color: $primary-color;
+        }
+
+        &:active {
+          color: $secondary-color;
+        }
+      }
     }
   }
 }

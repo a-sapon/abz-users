@@ -46,3 +46,11 @@ export const openModal = (response) => ({
 export const closeModal = () => ({
   type: Type.CLOSE_MODAL,
 });
+
+export const openMobileMenu = () => ({
+  type: Type.OPEN_MOBILE_MENU,
+});
+
+export const closeMobileMenu = () => ({
+  type: Type.CLOSE_MOBILE_MENU,
+});

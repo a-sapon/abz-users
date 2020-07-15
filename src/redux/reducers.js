@@ -52,3 +52,11 @@ export const modalReducer = (state = { open: false, response: null }, {type, pay
     default: return state;
   }
 };
+
+export const mobileMenuReducer = (state = false, {type}) => {
+  switch (type) {
+    case Type.OPEN_MOBILE_MENU: return true;
+    case Type.CLOSE_MOBILE_MENU: return false;
+    default: return state;
+  }
+}

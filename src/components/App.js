@@ -7,14 +7,17 @@ import RegisterForm from './registerForm/RegisterForm';
 import Footer from './footer/Footer';
 import Spinner from './spinner/Spinner';
 import Modal from './modal/Modal';
+import NavMenu from './navbar/navMenu/NavMenu';
 import { connect } from 'react-redux';
+import Swipe from 'react-easy-swipe';
 import { CSSTransition } from 'react-transition-group';
+import '../styles/modalAnimation.scss';
 import './app.scss';
-import './modal/animation.scss';
+import { closeMobileMenu } from '../redux/actionCreators';
 
 export const ScreenContext = createContext();
 
-function App({ spinner, modal }) {
+function App({ spinner, modal, mobileMenuOpen, closeMobileMenu }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -29,34 +32,46 @@ function App({ spinner, modal }) {
     checkScreenWidth();
   }, []);
 
+  const swipeHandler = () => {
+    console.log('swipe');
+    closeMobileMenu();
+  };
+
   return (
-    <ScreenContext.Provider value={{isMobile, isDesktop}}>
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <Banner />
-        <AboutSection />
-        <UsersSection />
-        <RegisterForm />
-      </main>
-      <Footer />
-      {spinner && <Spinner />}
+    <ScreenContext.Provider value={{ isMobile, isDesktop }}>
+      <Swipe onSwipeLeft={swipeHandler}>
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Banner />
+          <AboutSection />
+          <UsersSection />
+          <RegisterForm />
+        </main>
+        <Footer />
+
+        {mobileMenuOpen && <NavMenu />}
+      </Swipe>
+
       <CSSTransition
         in={modal.open}
         timeout={300}
-        classNames='animation'
+        classNames='modalAnimation'
         unmountOnExit
       >
         <Modal response={modal.response} />
       </CSSTransition>
+
+      {spinner && <Spinner />}
     </ScreenContext.Provider>
   );
 }
 
-const mapStateToProps = ({ spinner, modal }) => ({
+const mapStateToProps = ({ spinner, modal, mobileMenuOpen }) => ({
   spinner,
   modal,
+  mobileMenuOpen,
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { closeMobileMenu })(App);

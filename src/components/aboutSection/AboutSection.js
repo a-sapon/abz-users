@@ -1,4 +1,5 @@
 import React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import './aboutSection.scss';
 import '../app.scss';
 
@@ -19,9 +20,9 @@ const AboutSection = () => (
         directory page P​SD mockup​ into HTML5/CSS3.
       </p>
     </div>
-    <a href='#register' className='about-btn'>
+    <AnchorLink href='#register' className='about-btn'>
       Sing up now
-    </a>
+    </AnchorLink>
   </section>
 );
 

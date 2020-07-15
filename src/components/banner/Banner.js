@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PrimaryBtn from '../primaryBtn/PrimaryBtn';
 import { ScreenContext } from '../App';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import './banner.scss';
 import '../app.scss';
 
@@ -27,9 +28,9 @@ const Banner = () => {
             photo has to scale in the banner area on the different screens
           </p>
         )}
-        <a href='#register'>
+        <AnchorLink href='#register'>
           <PrimaryBtn name='Sing up now' type='button' />
-        </a>
+        </AnchorLink>
       </div>
     </section>
   );

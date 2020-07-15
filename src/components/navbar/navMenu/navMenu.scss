@@ -1,0 +1,56 @@
+@import '../../../styles/vars.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: rgba(22, 12, 13, 0.3);
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.navmenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 290px;
+  background-color: $background-color;
+  font-size: 16px;
+
+  &-logo {
+    line-height: 0;
+    font-size: 0;
+    color: transparent;
+    width: 133px;
+    background-image: url(../../../assets/images/logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 15px;
+    height: 40px;
+  }
+
+  &-list {
+    padding: 26px 0 25px 15px;
+    border-top: 1px solid #e1e1e1;
+
+    &_item {
+      color: $text-color;
+      transition: color 300ms ease-in-out;
+
+      &:hover {
+        @media (min-width: 768px) {
+          color: $primary-color;
+        }
+      }
+
+      &:active {
+        color: $secondary-color;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 21px;
+      }
+    }
+  }
+}
